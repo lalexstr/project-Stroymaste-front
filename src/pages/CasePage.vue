@@ -17,22 +17,14 @@
       <section class="cases-tabs">
         <div class="container">
           <div class="tabs">
-            <button
-              v-for="tab in tabs"
-              :key="tab.key"
-              :class="['tab-button', { active: activeTab === tab.key }]"
-              @click="activeTab = tab.key"
-            >
+            <button v-for="tab in tabs" :key="tab.key" :class="['tab-button', { active: activeTab === tab.key }]"
+              @click="activeTab = tab.key">
               {{ tab.label }}
             </button>
           </div>
 
           <div class="tab-content">
-            <div
-              v-for="card in filteredCards"
-              :key="card.id"
-              class="case-card"
-            >
+            <div v-for="card in filteredCards" :key="card.id" class="case-card">
               <img :src="card.image" alt="Кейс" class="card-image" />
               <div class="card-content">
                 <h3 class="card-title">{{ card.title }}</h3>
@@ -67,15 +59,15 @@ const cards = [
   {
     id: 1,
     type: 'delivery',
-    title: 'Перевозка техники в Сочи',
-    description: 'Осуществили доставку строительной техники в условиях горной местности.',
+    title: 'Перевозка техники в Г.Хабаровск',
+    description: 'Осуществили доставку техники в другой регион',
     image: id1,
   },
   {
     id: 2,
     type: 'construction',
-    title: 'Поставка щебня в Тверь',
-    description: 'Комплексная поставка строительных материалов на крупный объект.',
+    title: 'Поставка водосточные лотки в Г.Хабаровск',
+    description: 'Комплексная поставка водосточных лотков на крупный объект.',
     image: id2,
   },
   {
