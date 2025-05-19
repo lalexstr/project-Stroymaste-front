@@ -1,5 +1,5 @@
 export const fetchProducts = async () => {
-  const response = await fetch('http://194.67.84.96:3000/api/products')
+  const response = await fetch('http://79.174.81.54:3000/api/products')
 
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`)
@@ -12,7 +12,7 @@ export const fetchProducts = async () => {
 
 export const fetchProductById = async (id) => {
   try {
-    const response = await fetch(`http://194.67.84.96:3000/api/products/${id}`);
+    const response = await fetch(`http://79.174.81.54:3000/api/products/${id}`);
 
     // Проверяем статус ответа перед анализом Content-Type
     if (response.status === 404) {

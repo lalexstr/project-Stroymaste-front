@@ -61,7 +61,7 @@ export default {
         return photoPath;
       }
 
-      const baseUrl = import.meta.env.DEV ? 'http://194.67.84.96:3000' : '';
+      const baseUrl = import.meta.env.DEV ? 'http://79.174.81.54:3000' : '';
       // Убираем лишние слеши
       const cleanPath = photoPath.replace(/^\/+/, '');
       

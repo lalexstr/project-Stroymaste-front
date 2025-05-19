@@ -57,7 +57,7 @@ const getImageUrl = (product) => {
   photoPath = photoPath.replace(/^\/+/, '');
 
   // Формируем полный URL (в development режиме добавляем хост)
-  const baseUrl = import.meta.env.DEV ? 'http://194.67.84.96:3000' : '';
+  const baseUrl = import.meta.env.DEV ? 'http://79.174.81.54:3000' : '';
   return `${baseUrl}/${photoPath}`;
 };
 

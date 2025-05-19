@@ -3,7 +3,7 @@ import { Notify } from 'notiflix';
 
 // Создаем экземпляр axios
 const instance = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://194.67.84.96:3000/api/',
+  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://79.174.81.54:3000/api/',
   timeout: 10000,
 });
 

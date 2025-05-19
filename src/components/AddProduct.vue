@@ -112,7 +112,7 @@ export default {
         });
 
         // 1. Убедитесь, что URL правильный (должен быть /api/products, а не /api/)
-        const response = await axios.post('http://194.67.84.96:3000/api/products/', formData, {
+        const response = await axios.post('http://79.174.81.54:3000/api/products/', formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
