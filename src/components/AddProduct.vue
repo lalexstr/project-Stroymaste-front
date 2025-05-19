@@ -42,6 +42,7 @@
           <option value="19">Щебень</option>
           <option value="20">Отсев</option>
           <option value="21">Глина</option>
+          <option value="22">Марочный бетон</option>
           <!-- дальше по той же тактике, не забудь в sqlke добавить -->
         </select>
       </div>
