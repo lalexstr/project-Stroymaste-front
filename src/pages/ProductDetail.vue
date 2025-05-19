@@ -3,38 +3,24 @@
     <div class="loader"></div>
     <p>Загрузка товара...</p>
   </div>
-  
+
   <div v-else-if="error" class="error">
     {{ error }}
     <button @click="loadProduct" class="retry-btn">Попробовать снова</button>
   </div>
-  
+
   <div v-else-if="product" class="product-detail">
     <div class="product-content">
       <div class="gallery">
         <template v-if="product.photos && product.photos.length">
-          <img 
-            :src="optimizedImageUrl"
-            :alt="product.name"
-            @error="handleImageError"
-            loading="lazy"
-            class="gallery-image"
-            width="400"
-            height="400"
-          />
+          <img :src="optimizedImageUrl" :alt="product.name" @error="handleImageError" loading="lazy"
+            class="gallery-image" width="400" height="400" />
         </template>
         <div v-else class="no-photos">
-          <img 
-            :src="noImage" 
-            class="no-image-placeholder" 
-            alt="No image"
-            width="400"
-            height="400"
-            loading="lazy"
-          >
+          <img :src="noImage" class="no-image-placeholder" alt="No image" width="400" height="400" loading="lazy">
         </div>
       </div>
-      
+
       <div class="product-info">
         <h1>{{ product.name }}</h1>
         <p class="price">Запросить цену</p>
@@ -44,7 +30,7 @@
       </div>
     </div>
   </div>
-  
+
   <div v-else class="not-found">
     Товар не найден
   </div>
@@ -68,12 +54,18 @@ export default {
   computed: {
     optimizedImageUrl() {
       if (!this.product?.photos?.length) return noImage;
+
+      const photoPath = this.product.photos[0];
+      // Проверяем, является ли путь уже полным URL
+      if (photoPath.startsWith('http')) {
+        return photoPath;
+      }
+
+      const baseUrl = import.meta.env.DEV ? 'http://194.67.84.96:3000' : '';
+      // Убираем лишние слеши
+      const cleanPath = photoPath.replace(/^\/+/, '');
       
-      const photoPath = this.product.photos[0].replace(/^\/+/, '');
-      const baseUrl = import.meta.env.DEV ? 'http://localhost:3000' : '';
-      
-      // Добавляем параметры для оптимизации изображения (если ваш бэкенд поддерживает)
-      return `${baseUrl}/${photoPath}?w=800&h=800&fit=cover&q=80`;
+      return `${baseUrl}/${cleanPath}?w=800&h=800&fit=cover&q=80`;
     }
   },
   async created() {
@@ -84,23 +76,23 @@ export default {
       this.loading = true;
       this.error = null;
       this.imageErrors = {};
-      
+
       try {
         const productId = this.$route.params.id;
         if (!productId) throw new Error('ID товара не указан');
-        
+
         const response = await fetchProductById(productId);
-        
+
         // Нормализация данных
         this.product = {
           ...response,
-          photos: response.photos 
-            ? Array.isArray(response.photos) 
-              ? response.photos 
+          photos: response.photos
+            ? Array.isArray(response.photos)
+              ? response.photos
               : [response.photos]
             : []
         };
-        
+
       } catch (err) {
         console.error('Ошибка загрузки товара:', err);
         this.error = this.getErrorMessage(err);
@@ -108,41 +100,41 @@ export default {
         this.loading = false;
       }
     },
-    
+
     formatPrice(price) {
       const priceNumber = parseFloat(price);
-      return isNaN(priceNumber) 
-        ? 'Цена не указана' 
+      return isNaN(priceNumber)
+        ? 'Цена не указана'
         : new Intl.NumberFormat('ru-RU', {
-            style: 'currency',
-            currency: 'RUB',
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 0
-          }).format(priceNumber);
+          style: 'currency',
+          currency: 'RUB',
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 0
+        }).format(priceNumber);
     },
-    
+
     handleImageError(e) {
       e.target.src = noImage;
       e.target.classList.add('error-image');
     },
-    
+
     getErrorMessage(err) {
       if (err.message.includes('404')) return 'Товар не найден';
       if (err.message.includes('Network Error')) return 'Ошибка соединения с сервером';
       return 'Не удалось загрузить информацию о товаре';
     },
-    
+
     calculate() {
       if (this.tonnage === null || this.tonnage === '' || isNaN(this.product.price)) {
         this.totalPrice = 0;
         return;
       }
-      
+
       const tons = parseFloat(this.tonnage);
       const pricePerTon = parseFloat(this.product.price);
-      
-      this.totalPrice = !isNaN(tons) && !isNaN(pricePerTon) 
-        ? tons * pricePerTon 
+
+      this.totalPrice = !isNaN(tons) && !isNaN(pricePerTon)
+        ? tons * pricePerTon
         : 0;
     }
   }
@@ -319,15 +311,17 @@ export default {
   .product-content {
     flex-direction: column;
   }
-  
+
   .gallery,
   .product-info,
   .calculator {
-    width: calc(100% - 10px); /* Добавляем отступ слева */
+    width: calc(100% - 10px);
+    /* Добавляем отступ слева */
     min-width: auto;
-    margin-left: 10px; /* Сдвигаем на 10px влево */
+    margin-left: 10px;
+    /* Сдвигаем на 10px влево */
   }
-  
+
   .calculator {
     position: static;
     margin-top: 2rem;
@@ -339,16 +333,17 @@ export default {
   .product-detail {
     padding: 1rem;
   }
-  
+
   .gallery,
   .product-info,
   .calculator {
     width: calc(90% - 10px);
     margin-left: 10px;
   }
-  
+
   .calculator {
-    padding: 1.25rem; /* Немного уменьшим padding */
+    padding: 1.25rem;
+    /* Немного уменьшим padding */
   }
 }
 </style>

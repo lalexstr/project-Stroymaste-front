@@ -2,21 +2,12 @@
   <div v-if="loading" class="loading">Загрузка товаров...</div>
   <div v-else-if="error" class="error">{{ error }}</div>
   <div v-else-if="!products.length" class="empty">Товары не найдены</div>
-  
+
   <div v-else class="products-grid">
-    <div 
-      v-for="(product, index) in products" 
-      :key="product.id" 
-      class="product-card"
-      @click="$router.push(`/products/${product.id}`)"
-      :style="{'--index': index}"
-    >
+    <div v-for="(product, index) in products" :key="product.id" class="product-card"
+      @click="$router.push(`/products/${product.id}`)" :style="{ '--index': index }">
       <div class="image-container">
-        <img 
-          :src="getImageUrl(product)"
-          @error="(e) => handleImageError(e, product.id)"
-          loading="lazy"
-        />
+        <img :src="getImageUrl(product)" @error="(e) => handleImageError(e, product.id)" loading="lazy" />
       </div>
       <div class="product-info">
         <h3>{{ product.name }}</h3>
@@ -65,8 +56,8 @@ const getImageUrl = (product) => {
   photoPath = photoPath.replace(/^\/+/, '');
 
   // Формируем полный URL (в development режиме добавляем хост)
-  const baseUrl = import.meta.env.DEV ? 'http://localhost:3000' : '';
-    return `${baseUrl}/${photoPath}`;
+  const baseUrl = import.meta.env.DEV ? 'http://194.67.84.96:3000' : '';
+  return `${baseUrl}/${photoPath}`;
 };
 
 const handleImageError = (e, productId) => {
@@ -98,12 +89,14 @@ const handleImageError = (e, productId) => {
 }
 
 @keyframes fadeIn {
-  to { opacity: 1; }
+  to {
+    opacity: 1;
+  }
 }
 
 .product-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 .image-container {
@@ -163,7 +156,9 @@ const handleImageError = (e, productId) => {
   background: #1e4a7a;
 }
 
-.loading, .error, .empty {
+.loading,
+.error,
+.empty {
   text-align: center;
   padding: 40px;
   font-size: 1.2em;

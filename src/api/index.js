@@ -3,7 +3,7 @@ import { Notify } from 'notiflix';
 
 // Создаем экземпляр axios
 const instance = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api/',
+  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://194.67.84.96:3000/api/',
   timeout: 10000,
 });
 
@@ -34,14 +34,14 @@ export default {
   // Добавление продукта (с поддержкой FormData)
   addProduct(productData) {
     const formData = new FormData();
-    
+
     // Добавляем все поля кроме photos
     Object.keys(productData).forEach(key => {
       if (key !== 'photos') {
         formData.append(key, productData[key]);
       }
     });
-    
+
     // Добавляем фотографии
     if (productData.photos) {
       productData.photos.forEach(photo => {
@@ -54,11 +54,11 @@ export default {
         'Content-Type': 'multipart/form-data'
       }
     })
-    .then(response => response.data)
-    .catch(error => {
-      console.error('Add product error:', error);
-      throw error;
-    });
+      .then(response => response.data)
+      .catch(error => {
+        console.error('Add product error:', error);
+        throw error;
+      });
   },
 
   // Удаление продукта

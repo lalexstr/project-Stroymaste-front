@@ -7,17 +7,17 @@
         <label>Название:</label>
         <input v-model="product.name" type="text" required :disabled="loading">
       </div>
-      
+
       <div class="form-group">
         <label>Описание:</label>
         <textarea v-model="product.description" :disabled="loading"></textarea>
       </div>
-      
+
       <div class="form-group">
         <label>Цена:</label>
         <input v-model="product.price" type="number" step="0.01" required :disabled="loading">
       </div>
-      
+
       <div class="form-group">
         <label>Категория:</label>
         <select v-model="product.category_id" required :disabled="loading">
@@ -45,7 +45,7 @@
           <!-- дальше по той же тактике, не забудь в sqlke добавить -->
         </select>
       </div>
-      
+
       <div class="form-group">
         <label>Производитель:</label>
         <select v-model="product.manufacturer_id" required :disabled="loading">
@@ -53,22 +53,15 @@
           <!-- дальше по той же тактике, не забудь в sqlke добавить -->
         </select>
       </div>
-      
+
       <div class="form-group">
         <label>Фотографии:</label>
-        <input 
-          type="file" 
-          multiple 
-          @change="handleFileUpload" 
-          accept="image/*"
-          required
-          :disabled="loading"
-        >
+        <input type="file" multiple @change="handleFileUpload" accept="image/*" required :disabled="loading">
         <div v-if="product.photos.length > 0" class="file-list">
           Выбрано файлов: {{ product.photos.length }}
         </div>
       </div>
-      
+
       <button type="submit" class="submit-btn" :disabled="loading">
         <span v-if="!loading">Добавить продукт</span>
         <span v-else>Отправка...</span>
@@ -101,24 +94,24 @@ export default {
     },
     async handleSubmit() {
       if (this.loading) return;
-      
+
       this.loading = true;
       try {
         Loading.circle('Добавление продукта...');
-        
+
         const formData = new FormData();
         formData.append('name', this.product.name);
         formData.append('description', this.product.description);
         formData.append('price', this.product.price.toString());
         formData.append('category_id', this.product.category_id.toString());
         formData.append('manufacturer_id', this.product.manufacturer_id.toString());
-        
+
         this.product.photos.forEach(file => {
           formData.append('photos', file);
         });
 
         // 1. Убедитесь, что URL правильный (должен быть /api/products, а не /api/)
-        const response = await axios.post('http://localhost:3000/api/products', formData, {
+        const response = await axios.post('http://194.67.84.96:3000/api/products/', formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
@@ -130,7 +123,7 @@ export default {
       } catch (error) {
         console.error('Add product error:', error);
         let errorMessage = 'Не удалось добавить продукт';
-        
+
         if (error.response) {
           if (error.response.status === 404) {
             errorMessage = 'URL API не найден. Проверьте адрес сервера.';
@@ -138,7 +131,7 @@ export default {
             errorMessage = error.response.data?.message || errorMessage;
           }
         }
-        
+
         Notify.failure(errorMessage);
       } finally {
         this.loading = false;
@@ -181,7 +174,9 @@ label {
   font-weight: bold;
 }
 
-input, textarea, select {
+input,
+textarea,
+select {
   width: 100%;
   padding: 8px;
   border: 1px solid #ddd;
@@ -189,8 +184,8 @@ input, textarea, select {
   transition: border 0.3s;
 }
 
-input:disabled, 
-textarea:disabled, 
+input:disabled,
+textarea:disabled,
 select:disabled {
   background: #f0f0f0;
   cursor: not-allowed;

@@ -1,10 +1,10 @@
 export const fetchProducts = async () => {
-  const response = await fetch('http://localhost:3000/api/products')
-  
+  const response = await fetch('http://194.67.84.96:3000/api/products')
+
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`)
   }
-  
+
   const data = await response.json()
   console.log('API Response:', data) // Для отладки
   return data
@@ -12,13 +12,13 @@ export const fetchProducts = async () => {
 
 export const fetchProductById = async (id) => {
   try {
-    const response = await fetch(`http://localhost:3000/api/products/${id}`);
-    
+    const response = await fetch(`http://194.67.84.96:3000/api/products/${id}`);
+
     // Проверяем статус ответа перед анализом Content-Type
     if (response.status === 404) {
       throw new Error('Товар не найден');
     }
-    
+
     if (response.status === 500) {
       throw new Error('Ошибка сервера');
     }
@@ -34,7 +34,7 @@ export const fetchProductById = async (id) => {
 
     // Для всех других ошибок
     throw new Error(`HTTP error! status: ${response.status}`);
-    
+
   } catch (error) {
     console.error('Ошибка в fetchProductById:', error);
     throw new Error(error.message || 'Не удалось загрузить данные товара');
