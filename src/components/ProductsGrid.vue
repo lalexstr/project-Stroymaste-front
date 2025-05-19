@@ -7,7 +7,8 @@
     <div v-for="(product, index) in products" :key="product.id" class="product-card"
       @click="$router.push(`/products/${product.id}`)" :style="{ '--index': index }">
       <div class="image-container">
-        <img :src="getImageUrl(product)" @error="(e) => handleImageError(e, product.id)" loading="lazy" />
+        <img class="product-image" :src="getImageUrl(product)" @error="(e) => handleImageError(e, product.id)"
+          loading="lazy" />
       </div>
       <div class="product-info">
         <h3>{{ product.name }}</h3>
@@ -108,11 +109,11 @@ const handleImageError = (e, productId) => {
 }
 
 .product-image {
-  position: absolute;
   width: 100%;
-  height: 200px;
-  object-fit: contain;
+  height: 100%;
+  object-fit: cover;
   object-position: center;
+  display: block;
   transition: opacity 0.3s;
 }
 

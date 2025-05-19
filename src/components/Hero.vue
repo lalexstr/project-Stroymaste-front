@@ -2,7 +2,7 @@
   <section class="hero">
     <div class="hero-image">
       <div class="hero-overlay"></div>
-      <img src="/src/assets/hero.png" alt="Грузовик на фоне стройки">
+      <img :src="heroImage" alt="Грузовик на фоне стройки">
     </div>
     <!-- если кто-то когда-то будет смотреть код страницы, пж не говорите никому что такие сайты существуют :) и единственный совет, не используйте еб#ный sql лучше могодб юзайте:) -->
     <div class="hero-content container">
@@ -19,7 +19,29 @@
 
 <script>
 export default {
-  name: 'Hero'
+  name: 'Hero',
+  data() {
+    return {
+      isMobile: false
+    }
+  },
+  computed: {
+    heroImage() {
+      return this.isMobile ? '/src/assets/hero-mobile.png' : '/src/assets/hero.png'
+    }
+  },
+  mounted() {
+    this.checkDevice()
+    window.addEventListener('resize', this.checkDevice)
+  },
+  beforeUnmount() {
+    window.removeEventListener('resize', this.checkDevice)
+  },
+  methods: {
+    checkDevice() {
+      this.isMobile = window.innerWidth <= 768
+    }
+  }
 }
 </script>
 
