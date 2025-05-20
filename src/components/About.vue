@@ -22,7 +22,7 @@
               <div class="stat-label">Клиентов</div>
             </div>
             <div class="stat-item">
-              <div class="stat-number">100+</div>
+              <div class="stat-number">30+</div>
               <div class="stat-label">Единиц техники</div>
             </div>
           </div>

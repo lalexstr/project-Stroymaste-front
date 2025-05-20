@@ -45,6 +45,27 @@
             Предоставляем в аренду широкий парк строительной и грузоподъёмной техники с квалифицированными операторами
           </p>
         </div>
+
+        <div class="service-card">
+          <div class="service-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--primary-color)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M8 8l8 8"></path>
+              <path d="M12 3v2"></path>
+              <circle cx="12" cy="12" r="7"></circle>
+              <path d="M19 12h2"></path>
+              <path d="M3 12h2"></path>
+              <path d="M12 19v2"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M3 20h18"></path>
+              <path d="M4 16v4"></path>
+              <path d="M20 16v4"></path>
+            </svg>
+          </div>
+          <h3 class="service-title">Производство бетона</h3>
+          <p class="service-description">
+            Изготавливаем бетон любых марок персонально под ваши потребности с учетом всех технических требований проекта
+          </p>
+        </div>
       </div>
       
       <!-- Добавленная кнопка для перехода к продуктам -->

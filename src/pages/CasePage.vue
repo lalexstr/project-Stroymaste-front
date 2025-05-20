@@ -47,6 +47,7 @@ import id2 from '@/assets/image2.png';
 import id3 from '@/assets/image3.png';
 import id4 from '@/assets/image4.png';
 import id5 from '@/assets/image5.png';
+import id6 from '@/assets/image6.png';
 
 const activeTab = ref('delivery')
 
@@ -91,6 +92,13 @@ const cards = [
     description: 'Осуществлена транспортировка сена от места сбора до пункта хранения',
     image: id5,
   },
+  {
+    id: 4,
+    type: 'construction',
+    title: 'Поставка бетона в Г.Хабаровск',
+    description: 'Комплексная поставка бетона для заливки придомовой территории.',
+    image: id6,
+  }
 ]
 
 const filteredCards = computed(() =>
