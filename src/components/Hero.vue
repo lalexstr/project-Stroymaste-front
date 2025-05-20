@@ -18,6 +18,9 @@
 </template>
 
 <script>
+import heroDesktopImage from '../assets/hero.png'
+import heroMobileImage from '../assets/hero-mobile.png'
+
 export default {
   name: 'Hero',
   data() {
@@ -27,7 +30,7 @@ export default {
   },
   computed: {
     heroImage() {
-      return this.isMobile ? '/src/assets/hero-mobile.png' : '/src/assets/hero.png'
+      return this.isMobile ? heroMobileImage : heroDesktopImage
     }
   },
   mounted() {
